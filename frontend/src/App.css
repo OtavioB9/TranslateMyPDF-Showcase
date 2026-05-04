@@ -1,0 +1,194 @@
+
+
+
+.page-wrapper {
+  min-height: 100dvh;
+  display: flex;
+  flex-direction: column;
+  background: var(--bg);
+  background-image: var(--bg-hero);
+  background-size: cover;
+  position: relative;
+}
+
+/* Vinheta: escurece as extremidades da página (apenas modo escuro) */
+.page-wrapper::after {
+  content: '';
+  position: fixed;
+  inset: 0;
+  pointer-events: none;
+  z-index: 0;
+  background:
+    radial-gradient(ellipse at top left,     rgba(0, 0, 0, 0.4) 0%, rgba(0, 0, 0, 0) 45%),
+    radial-gradient(ellipse at top right,    rgba(0, 0, 0, 0.4) 0%, rgba(0, 0, 0, 0) 45%),
+    radial-gradient(ellipse at bottom left,  rgba(0, 0, 0, 0.4) 0%, rgba(0, 0, 0, 0) 45%),
+    radial-gradient(ellipse at bottom right, rgba(0, 0, 0, 0.4) 0%, rgba(0, 0, 0, 0) 45%);
+}
+
+[data-theme='light'] .page-wrapper::after {
+  display: none;
+}
+
+html, body, #root {
+  height: 100%;
+  overflow-x: hidden;
+}
+
+.container {
+  max-width: 1120px;
+  margin: 0 auto;
+  padding-left: 2rem;
+  padding-right: 2rem;
+  width: 100%;
+}
+
+
+/* .liquid-glass removido — usando definição otimizada do Common.css */
+
+
+.section-title {
+  background: linear-gradient(to right, #ffffff 30%, #64748b 100%);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+  color: transparent;
+  font-weight: 800;
+  letter-spacing: -0.02em;
+}
+
+[data-theme='light'] .section-title {
+  color: var(--text-heading);
+  background: none;
+  -webkit-text-fill-color: initial;
+  background-clip: initial;
+}
+
+
+@keyframes spin {
+  to { transform: rotate(360deg); }
+}
+
+@keyframes fadeIn {
+  from { opacity: 0; transform: translateY(10px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+@keyframes slideUp {
+  from { opacity: 0; transform: translateY(20px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+@keyframes shine {
+  0% { transform: translateX(-100%) translateY(-100%) rotate(45deg); }
+  100% { transform: translateX(200%) translateY(200%) rotate(45deg); }
+}
+
+.shine-effect {
+  position: relative;
+  overflow: hidden;
+}
+
+.shine-effect::before {
+  content: '';
+  position: absolute;
+  top: -50%;
+  left: -50%;
+  width: 200%;
+  height: 200%;
+  background: linear-gradient(
+    rgba(255, 255, 255, 0) 0%,
+    rgba(255, 255, 255, 0.05) 50%,
+    rgba(255, 255, 255, 0) 100%
+  );
+  transform: rotate(45deg);
+  pointer-events: none;
+  z-index: 1;
+}
+
+.shine-effect:hover::before {
+  animation: shine 1.2s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+
+.icon-red {
+  color: var(--accent-rose) !important;
+}
+
+.magnetic-wrap {
+  display: inline-block;
+  transition: transform 0.2s cubic-bezier(0.33, 1, 0.68, 1);
+}
+
+.premium-btn-hover {
+  transition: all 0.3s cubic-bezier(0.23, 1, 0.32, 1);
+}
+
+.premium-btn-hover:active {
+  transform: scale(0.95);
+}
+
+.spinner {
+  animation: spin 1s linear infinite;
+}
+
+.spinner.inline {
+  display: inline-block;
+  width: 1em;
+  height: 1em;
+  border: 2px solid currentColor;
+  border-top-color: transparent;
+  border-radius: 50%;
+}
+
+
+.toast-error {
+  position: fixed;
+  bottom: 2rem;
+  left: 50%;
+  transform: translateX(-50%);
+  background: var(--error);
+  color: white;
+  padding: 0.75rem 1rem 0.75rem 1.5rem;
+  border-radius: var(--radius-pill);
+  font-weight: 600;
+  font-size: 0.85rem;
+  box-shadow: 0 10px 30px rgba(220, 38, 38, 0.25);
+  z-index: 1000;
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+  min-width: 320px;
+  justify-content: space-between;
+  backdrop-filter: blur(10px);
+}
+
+.toast-close {
+  background: rgba(255, 255, 255, 0.2);
+  border: none;
+  color: white;
+  width: 24px;
+  height: 24px;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  transition: all 0.2s;
+}
+
+.toast-close:hover {
+  background: rgba(255, 255, 255, 0.3);
+}
+
+
+
+/* .particle-canvas removido */
+
+/* -- Responsive Base -- */
+@media (max-width: 768px) {
+  .container { 
+    padding-left: 1rem; 
+    padding-right: 1rem; 
+  }
+  .section-title { font-size: 1.75rem; }
+}

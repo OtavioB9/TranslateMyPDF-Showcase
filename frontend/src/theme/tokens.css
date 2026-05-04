@@ -1,0 +1,52 @@
+:root {
+  
+  --bg-dark: #000000;
+  --bg-light: #f8fafc;
+  
+  
+  --accent-red: #ef4444;
+  --accent-red-hover: #dc2626;
+  --accent-red-glow: rgba(239, 68, 68, 0.4);
+  
+  
+  --glass-bg: rgba(255, 255, 255, 0.03);
+  --glass-bg-light: rgba(0, 0, 0, 0.05);
+  --glass-border: rgba(239, 68, 68, 0.3);
+  --glass-border-light: rgba(239, 68, 68, 0.2);
+  
+  
+  --font-main: 'Outfit', sans-serif;
+  --text-primary: #f8fafc;
+  --text-secondary: #94a3b8;
+  --text-primary-light: #0f172a;
+  
+  
+  --radius-pill: 9999px;
+  --radius-card: 1.5rem;
+}
+
+
+:root {
+  --bg: var(--bg-dark);
+  --bg-card: var(--glass-bg);
+  --bg-surface: #111111;
+  --border: var(--glass-border);
+  --text-heading: var(--text-primary);
+  --text-body: var(--text-primary);
+  --text-muted: var(--text-secondary);
+  --accent-rose: var(--accent-red);
+  --accent-rose-soft: rgba(239, 68, 68, 0.1);
+}
+
+[data-theme='light'] {
+  --bg: var(--bg-light);
+  --bg-card: #ffffff;
+  --bg-surface: #f1f5f9;
+  --border: rgba(0, 0, 0, 0.1);
+  --text-heading: var(--text-primary-light);
+  --text-body: #334155;
+  --text-muted: #64748b;
+  --accent-rose: #ef4444;
+  --accent-rose-soft: rgba(239, 68, 68, 0.08);
+}
+

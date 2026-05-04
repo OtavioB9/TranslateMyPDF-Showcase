@@ -1,0 +1,57 @@
+# Python
+__pycache__/
+*.pyc
+*.pyo
+*.pyd
+.Python
+*.egg-info/
+dist/
+build/
+.eggs/
+.pytest_cache/
+.ruff_cache/
+
+# PyInstaller
+*.spec.bak
+dist/
+build/
+
+# Logs da aplicação
+.pdf-translator/
+
+# Ambientes virtuais
+venv/
+.venv/
+env/
+.env
+.env.local
+
+# IDEs
+.vscode/
+.idea/
+*.suo
+*.user
+*.code-workspace
+
+# Arquivos de sistema
+.DS_Store
+Thumbs.db
+
+# Dados e Checkpoints
+data/
+*.pdf
+*.checkpoint.pdf
+*.quality.json
+translations.db
+
+# Node / Frontend
+node_modules/
+dist/
+.vite/
+.env
+.env.local
+npm-debug.log*
+fonts/*.ttf
+test_phase2.py
+debug_*.py
+translations.db

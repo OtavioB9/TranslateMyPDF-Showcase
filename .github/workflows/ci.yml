@@ -1,0 +1,80 @@
+name: CI/CD Pipeline
+
+on:
+  push:
+    branches: [ "main" ]
+  pull_request:
+    branches: [ "main" ]
+
+jobs:
+  backend-qa:
+    name: Backend QA (Lint & Type Check)
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Install uv
+        uses: astral-sh/setup-uv@v3
+        with:
+          version: "latest"
+
+      - name: Set up Python
+        run: uv python install 3.12
+
+      - name: Install dependencies
+        run: uv sync
+
+      - name: Lint Check (Ruff)
+        run: uv run ruff check .
+
+      - name: Type Check (Pyrefly/Mypy)
+        run: uv run mypy .
+
+      - name: Run Unit Tests
+        run: uv run pytest -v
+
+  frontend-qa:
+    name: Frontend QA (Build & Lint)
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Set up Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: 20
+          cache: 'npm'
+          cache-dependency-path: frontend/package-lock.json
+
+      - name: Install dependencies
+        run: npm ci
+        working-directory: frontend
+
+      - name: Build Frontend
+        run: npm run build
+        working-directory: frontend
+
+  release-build:
+    name: Desktop Release (Windows)
+    needs: [backend-qa, frontend-qa]
+    runs-on: windows-latest
+    if: github.event_name == 'push' && contains(github.ref, 'tags/v')
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Install uv
+        uses: astral-sh/setup-uv@v3
+
+      - name: Set up Python
+        run: uv python install 3.12
+
+      - name: Build Executable
+        run: |
+          uv sync
+          uv run pyinstaller --onefile --windowed --name LayrPDF api_server.py
+
+      - name: Upload Artifact
+        uses: actions/upload-artifact@v4
+        with:
+          name: LayrPDF-Windows
+          path: dist/LayrPDF.exe

@@ -1,0 +1,280 @@
+
+.hero {
+  padding-top: 140px;
+  padding-bottom: 80px;
+  position: relative;
+  overflow: hidden;
+  will-change: transform, opacity;
+}
+
+.hero-grid {
+  display: grid;
+  grid-template-columns: 1.2fr 0.8fr; /* Asymmetric 60/40 split */
+  gap: 4rem;
+  align-items: center;
+}
+
+.hero-badge {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5rem;
+  background: var(--accent-rose-soft);
+  color: var(--accent-rose);
+  padding: 0.4rem 1rem;
+  border-radius: var(--radius-pill);
+  font-size: 0.8rem;
+  font-weight: 600;
+  margin-bottom: 1.5rem;
+  border: 1px solid rgba(225, 29, 72, 0.12);
+}
+
+/* Animação exclusiva do h1 — não conflita com @keyframes shine dos botões */
+@keyframes hero-color-wave {
+  0%   { background-position: 0% 0%; }
+  50%  { background-position: 0% 100%; }
+  100% { background-position: 0% 0%; }
+}
+
+.hero h1 {
+  font-size: clamp(2.4rem, 6vw, 4.5rem);
+  font-weight: 800;
+  line-height: 0.95;
+  letter-spacing: -0.05em;
+  margin-bottom: 2rem;
+  
+  /* Modern Shine Gradient */
+  background: linear-gradient(
+    to bottom,
+    var(--text-heading) 0%,
+    var(--text-heading) 40%,
+    var(--accent-rose) 50%,
+    var(--text-heading) 60%,
+    var(--text-heading) 100%
+  );
+  background-size: 100% 200%;
+  animation: hero-color-wave 10s ease-in-out infinite;
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+  color: transparent;
+  text-shadow: 0 0 40px rgba(239, 68, 68, 0.15);
+  will-change: background-position;
+}
+
+[data-theme='light'] .hero h1 {
+  color: var(--text-heading);
+  background: none;
+  -webkit-text-fill-color: initial;
+  background-clip: initial;
+}
+
+.hero-subtitle {
+  font-size: 1.25rem;
+  color: var(--text-body);
+  line-height: 1.6;
+  max-width: 520px;
+  margin-bottom: 3rem;
+  font-weight: 400;
+  opacity: 0.9;
+}
+
+.hero-actions {
+  display: flex;
+  gap: 1rem;
+  align-items: center;
+}
+
+/* Hero Visual */
+.hero-visual {
+  position: relative;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+
+.hero-3d-scene {
+  perspective: 900px;
+  width: 100%;
+  max-width: 440px;
+  position: relative;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  min-height: 340px;
+}
+
+.hero-3d-document {
+  width: 100%;
+  background: var(--bg-card);
+  border-radius: var(--radius-xl);
+  border: 1px solid var(--border-hover);
+  box-shadow: var(--shadow-elevated), 0 0 60px rgba(225, 29, 72, 0.06);
+  transform-style: preserve-3d;
+  backdrop-filter: blur(8px);
+  will-change: transform, opacity;
+}
+
+.doc-header {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+  padding: 1rem 1.5rem;
+  border-bottom: 1px solid var(--border);
+  height: 54px; /* Fixed height for consistency */
+}
+
+.doc-dots {
+  display: flex;
+  align-items: center;
+  gap: 0.4rem;
+}
+
+.doc-dots span {
+  width: 8px;
+  height: 8px;
+  border-radius: 50%;
+}
+
+.doc-dots span:nth-child(1) { background: #ef4444; }
+.doc-dots span:nth-child(2) { background: #eab308; }
+.doc-dots span:nth-child(3) { background: #22c55e; }
+
+.doc-title-bar {
+  flex: 1;
+  display: flex;
+  align-items: center;
+}
+
+.doc-filename {
+  font-size: 0.72rem;
+  font-weight: 600;
+  color: var(--text-muted);
+  letter-spacing: 0.02em;
+  font-family: 'Courier New', monospace;
+  line-height: 1.2;
+  display: inline-flex;
+  align-items: center;
+}
+
+.doc-body {
+  padding: 1.75rem;
+  height: 220px;
+  display: flex;
+  flex-direction: column;
+  gap: 0.6rem;
+  transform-style: preserve-3d;
+  position: relative;
+  overflow: hidden;
+}
+
+.doc-line {
+  height: 28px;
+  border-radius: 8px;
+  position: relative;
+  width: 90%;
+  margin-right: auto;
+  transition: all 0.4s ease;
+  overflow: hidden;
+}
+
+.doc-line.en-line {
+  background: var(--mockup-line-bg);
+  border: 1px solid var(--border);
+}
+
+.doc-line.pt-line {
+  background: linear-gradient(90deg, var(--accent-rose-soft), rgba(239, 68, 68, 0.05));
+  border: 1px solid var(--accent-rose-soft);
+}
+
+.doc-line-text {
+  position: relative;
+  height: 100%;
+  display: flex;
+  align-items: center;
+  padding: 0 0.85rem;
+  font-size: 0.72rem;
+  font-weight: 500;
+  letter-spacing: 0.01em;
+  white-space: nowrap;
+  overflow: visible;
+}
+
+.doc-line-text.en-text {
+  color: var(--text-body);
+}
+
+.doc-line-text.pt-text {
+  color: var(--accent-rose);
+}
+
+.doc-footer {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 1rem 1.75rem;
+  border-top: 1px solid var(--border);
+}
+
+.lang-badge {
+  font-size: 0.65rem;
+  font-weight: 800;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  padding: 0.3rem 0.7rem;
+  border-radius: var(--radius-pill);
+  transition: all 0.35s ease;
+}
+
+.lang-badge.en {
+  background: var(--mockup-line-bg);
+  color: var(--text-body);
+  border: 1px solid var(--border);
+}
+
+.lang-badge.pt {
+  background: var(--accent-rose-soft);
+  color: var(--accent);
+  border: 1px solid var(--accent-rose-soft);
+}
+
+.translate-progress {
+  display: flex;
+  align-items: center;
+  gap: 0.35rem;
+}
+
+.progress-dot {
+  width: 6px;
+  height: 6px;
+  border-radius: 50%;
+  background: var(--border-hover);
+  display: block;
+}
+
+.hero-float-particle {
+  position: absolute;
+  border-radius: 50%;
+  background: var(--accent-rose);
+  pointer-events: none;
+}
+
+/* -- Hero Mobile -- */
+@media (max-width: 768px) {
+  .hero { padding-top: 100px; padding-bottom: 40px; text-align: center; }
+  .hero-grid { grid-template-columns: 1fr; gap: 3rem; }
+  .hero h1 { font-size: 2.8rem; margin-bottom: 1.5rem; }
+  .hero-subtitle { margin: 0 auto 2.5rem; font-size: 1.1rem; }
+  .hero-actions { justify-content: center; flex-wrap: wrap; }
+  .hero-visual { max-width: 100%; width: 100%; margin: 1rem 0 0; }
+  .hero-3d-scene { transform: scale(1); min-height: 340px; width: 100%; max-width: none; }
+  .doc-line-text { font-size: 0.68rem; padding: 0 0.85rem; }
+  .doc-line { height: 26px; }
+}
+
+@keyframes shine {
+  0% { background-position: 0% 0%; }
+  50% { background-position: 0% 100%; }
+  100% { background-position: 0% 0%; }
+}

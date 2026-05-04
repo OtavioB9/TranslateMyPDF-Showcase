@@ -1,0 +1,105 @@
+.preview-mode-selector {
+  display: flex;
+  gap: 2rem;
+  margin-bottom: 4rem;
+  width: 100%;
+  justify-content: center;
+}
+
+.mode-card {
+  background: rgba(255, 255, 255, 0.02);
+  border: 1px solid rgba(255, 255, 255, 0.06);
+  border-radius: 28px;
+  padding: 3rem 2.5rem;
+  width: 320px;
+  cursor: pointer;
+  transition: all 0.45s cubic-bezier(0.23, 1, 0.32, 1);
+  text-align: center;
+  backdrop-filter: blur(24px);
+  -webkit-backdrop-filter: blur(24px);
+  position: relative;
+  overflow: hidden;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  box-shadow: 
+    0 20px 50px rgba(0, 0, 0, 0.4),
+    inset 0 0 0 1px rgba(255, 255, 255, 0.04);
+}
+
+.mode-card::after {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(135deg, rgba(255, 255, 255, 0.05) 0%, transparent 40%);
+  pointer-events: none;
+}
+
+.mode-card:hover {
+  background: rgba(255, 255, 255, 0.05);
+  border-color: rgba(239, 68, 68, 0.3);
+  transform: translateY(-15px);
+  box-shadow: 
+    0 40px 80px rgba(0, 0, 0, 0.6),
+    0 0 40px rgba(239, 68, 68, 0.2);
+}
+
+.mode-icon {
+  width: 72px;
+  height: 72px;
+  background: rgba(239, 68, 68, 0.1);
+  border-radius: 20px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin-bottom: 1.5rem;
+  color: var(--accent-rose);
+  transition: all 0.4s ease;
+}
+
+.mode-card:hover .mode-icon {
+  background: var(--accent-rose);
+  color: white;
+  transform: scale(1.1) rotate(5deg);
+}
+
+[data-theme='light'] .mode-card {
+  background: rgba(255, 255, 255, 0.6);
+  border-color: rgba(0, 0, 0, 0.06);
+  box-shadow: 
+    0 15px 35px rgba(0, 0, 0, 0.05),
+    inset 0 0 0 1px rgba(255, 255, 255, 0.9);
+}
+
+[data-theme='light'] .mode-card:hover {
+  background: rgba(255, 255, 255, 0.9);
+  border-color: rgba(239, 68, 68, 0.2);
+  box-shadow: 
+    0 20px 45px rgba(0, 0, 0, 0.08),
+    inset 0 0 0 1px rgba(255, 255, 255, 1);
+}
+
+.mode-card h4 {
+  font-size: 1.35rem;
+  font-weight: 700;
+  margin-bottom: 0.75rem;
+  color: var(--text-heading);
+}
+
+.mode-card p {
+  font-size: 0.95rem;
+  line-height: 1.5;
+  color: var(--text-muted);
+  margin-bottom: 0;
+}
+
+@media (max-width: 768px) {
+  .preview-mode-selector {
+    flex-direction: column;
+    align-items: center;
+  }
+  .mode-card {
+    width: 100%;
+    max-width: 320px;
+  }
+}

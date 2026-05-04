@@ -1,0 +1,50 @@
+[project]
+name = "layrpdf-showcase"
+version = "2.0.0"
+description = "Professional showcase of LayrPDF: A PDF translation engine with layout preservation."
+readme = "README.md"
+requires-python = ">=3.12"
+dependencies = [
+    "PyMuPDF>=1.23.0",
+    "deep-translator>=1.11.0",
+    "pytesseract>=0.3.10",
+    "Pillow>=10.0.0",
+    "numpy<2.0.0",
+    "fastapi>=0.100.0",
+    "uvicorn>=0.23.0",
+    "python-multipart>=0.0.6",
+    "jinja2>=3.1.2",
+]
+
+[tool.pytest.ini_options]
+testpaths = ["tests"]
+markers = [
+    "unit: testes isolados sem rede ou escrita nativa em disco",
+    "integration: smoke tests com PDFs reais, I/O transiente e DB",
+]
+
+[tool.ruff]
+line-length = 88
+target-version = "py312"
+
+[tool.ruff.lint]
+select = ["E", "F", "W", "I"]
+ignore = ["E501"]
+
+[tool.mypy]
+python_version = "3.12"
+warn_return_any = true
+warn_unused_configs = true
+ignore_missing_imports = true
+check_untyped_defs = true
+exclude = ["tests/", "venv/", ".venv/"]
+
+[dependency-groups]
+dev = [
+    "mypy>=1.20.2",
+    "ruff>=0.15.12",
+    "pytest>=9.0.3",
+    "pytest-mock>=3.15.1",
+    "httpx>=0.28.1",
+    "anyio>=4.13.0",
+]

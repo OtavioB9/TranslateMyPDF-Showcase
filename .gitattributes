@@ -1,0 +1,27 @@
+# Estratégia para Python #1 mantendo visibilidade das outras linguagens
+
+# 'Vender' a maior parte do frontend para reduzir o peso de bytes do JS/CSS
+frontend/src/components/** linguist-vendored
+frontend/src/pages/** linguist-vendored
+frontend/src/services/** linguist-vendored
+frontend/src/hooks/** linguist-vendored
+frontend/src/contexts/** linguist-vendored
+frontend/src/styles/** linguist-vendored
+frontend/src/theme/** linguist-vendored
+frontend/src/i18n/** linguist-vendored
+
+# Marcar arquivos de infraestrutura e dependências como 'vendored'
+frontend/package-lock.json linguist-vendored
+frontend/package.json linguist-vendored
+frontend/vite.config.js linguist-vendored
+frontend/public/** linguist-vendored
+
+# Marcar screenshots como documentação
+frontend/src/reference-screenshots/** linguist-documentation
+
+# O GitHub ainda detectará o JavaScript através de:
+# - frontend/src/App.jsx
+# - frontend/src/main.jsx
+# E o CSS através de:
+# - frontend/src/index.css
+# Isso garante que as cores apareçam, mas o Python ganhará pelo volume de código.
