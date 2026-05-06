@@ -35,7 +35,6 @@ export function useTranslation(t) {
     return () => clearInterval(interval);
   }, []);
 
-  // Status Polling
   useEffect(() => {
     let interval;
     if (jobId && hasStartedTranslation && status?.status !== 'completed' && status?.status !== 'failed') {
@@ -78,7 +77,6 @@ export function useTranslation(t) {
         const estimatedTotal = elapsed / progress;
         const remaining = Math.max(0, estimatedTotal - elapsed);
 
-        // Blend with server ETA if available, otherwise use local estimation
         const serverEta = status.eta || remaining;
         const blended = status.eta 
           ? (remaining * 0.3) + (status.eta * 0.7)

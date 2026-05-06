@@ -211,41 +211,6 @@
   100% { transform: scale(3); opacity: 0; }
 }
 
-.card-shine-title {
-  font-family: 'Outfit', sans-serif;
-  font-size: 1.75rem;
-  font-weight: 900;
-  text-transform: uppercase;
-  letter-spacing: 0.4em;
-  margin-bottom: 0.5rem;
-  background: linear-gradient(
-    to right, 
-    #fff 20%, 
-    #ff4d4d 40%, 
-    #ff4d4d 60%, 
-    #fff 80%
-  );
-  background-size: 200% auto;
-  background-clip: text;
-  -webkit-background-clip: text;
-  -webkit-text-fill-color: transparent;
-  animation: shine 6s cubic-bezier(0.4, 0, 0.2, 1) infinite;
-  filter: drop-shadow(0 0 10px rgba(239, 68, 68, 0.15));
-}
-
-[data-theme='light'] .card-shine-title {
-  background: linear-gradient(
-    to right, 
-    #121317 20%, 
-    #ef4444 40%, 
-    #ef4444 60%, 
-    #121317 80%
-  );
-  background-size: 200% auto;
-  background-clip: text;
-  -webkit-background-clip: text;
-}
-
 .file-count-label {
   font-size: 0.7rem;
   font-weight: 700;
@@ -367,6 +332,15 @@
   display: flex;
   align-items: center;
   justify-content: center;
+}
+
+.input-sub-label {
+  font-size: 0.6rem;
+  font-weight: 800;
+  text-transform: uppercase;
+  letter-spacing: 0.1em;
+  color: var(--accent-rose);
+  margin-top: 0.25rem;
 }
 
 .pages-pill-input-v2 {

@@ -3,8 +3,10 @@ import { Layout, Columns } from 'lucide-react';
 import './PreviewModeSelector.css';
 
 export const PreviewModeSelector = ({ onSelect, t }) => {
+  const isMobile = window.innerWidth <= 768;
+
   return (
-    <div className="preview-mode-selector">
+    <div className={`preview-mode-selector ${isMobile ? 'mobile-single-only' : ''}`}>
       <motion.div 
         className="mode-card"
         whileHover={{ scale: 1.02 }}
@@ -15,16 +17,19 @@ export const PreviewModeSelector = ({ onSelect, t }) => {
         <h4>{t.mode_single_title}</h4>
         <p>{t.mode_single_desc}</p>
       </motion.div>
-      <motion.div 
-        className="mode-card"
-        whileHover={{ scale: 1.02 }}
-        whileTap={{ scale: 0.98 }}
-        onClick={() => onSelect('side')}
-      >
-        <div className="mode-icon"><Columns size={28} /></div>
-        <h4>{t.mode_side_title}</h4>
-        <p>{t.mode_side_desc}</p>
-      </motion.div>
+      
+      {!isMobile && (
+        <motion.div 
+          className="mode-card"
+          whileHover={{ scale: 1.02 }}
+          whileTap={{ scale: 0.98 }}
+          onClick={() => onSelect('side')}
+        >
+          <div className="mode-icon"><Columns size={28} /></div>
+          <h4>{t.mode_side_title}</h4>
+          <p>{t.mode_side_desc}</p>
+        </motion.div>
+      )}
     </div>
   );
 };

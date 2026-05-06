@@ -14,6 +14,22 @@
   align-items: center;
 }
 
+@keyframes cssFadeUp {
+  0% { opacity: 0; transform: translateY(20px); }
+  100% { opacity: 1; transform: translateY(0); }
+}
+
+.animate-fade-up {
+  opacity: 0;
+  animation: cssFadeUp 0.8s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+}
+
+.delay-1 { animation-delay: 0.1s; }
+.delay-2 { animation-delay: 0.2s; }
+.delay-3 { animation-delay: 0.3s; }
+.delay-4 { animation-delay: 0.4s; }
+
+
 .hero-badge {
   display: inline-flex;
   align-items: center;
@@ -28,12 +44,7 @@
   border: 1px solid rgba(225, 29, 72, 0.12);
 }
 
-/* Animação exclusiva do h1 — não conflita com @keyframes shine dos botões */
-@keyframes hero-color-wave {
-  0%   { background-position: 0% 0%; }
-  50%  { background-position: 0% 100%; }
-  100% { background-position: 0% 0%; }
-}
+
 
 .hero h1 {
   font-size: clamp(2.4rem, 6vw, 4.5rem);
@@ -41,32 +52,10 @@
   line-height: 0.95;
   letter-spacing: -0.05em;
   margin-bottom: 2rem;
-  
-  /* Modern Shine Gradient */
-  background: linear-gradient(
-    to bottom,
-    var(--text-heading) 0%,
-    var(--text-heading) 40%,
-    var(--accent-rose) 50%,
-    var(--text-heading) 60%,
-    var(--text-heading) 100%
-  );
-  background-size: 100% 200%;
-  animation: hero-color-wave 10s ease-in-out infinite;
-  -webkit-background-clip: text;
-  -webkit-text-fill-color: transparent;
-  background-clip: text;
-  color: transparent;
-  text-shadow: 0 0 40px rgba(239, 68, 68, 0.15);
-  will-change: background-position;
+  color: var(--accent-rose);
 }
 
-[data-theme='light'] .hero h1 {
-  color: var(--text-heading);
-  background: none;
-  -webkit-text-fill-color: initial;
-  background-clip: initial;
-}
+
 
 .hero-subtitle {
   font-size: 1.25rem;
@@ -90,6 +79,8 @@
   display: flex;
   align-items: center;
   justify-content: center;
+  min-height: 340px;
+  width: 100%;
 }
 
 
@@ -273,8 +264,3 @@
   .doc-line { height: 26px; }
 }
 
-@keyframes shine {
-  0% { background-position: 0% 0%; }
-  50% { background-position: 0% 100%; }
-  100% { background-position: 0% 0%; }
-}

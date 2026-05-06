@@ -21,6 +21,8 @@ export const PdfPreviewContent = ({
   showOriginal,
   t
 }) => {
+  const isMobile = typeof window !== 'undefined' && window.innerWidth <= 768;
+
   return (
     <div 
       className={`preview-viewer-grid ${isSide ? 'side-grid' : ''}`} 
@@ -31,29 +33,27 @@ export const PdfPreviewContent = ({
     >
       {!isSide ? (
         <div className="preview-viewer-single">
-          {showSpinner && displaySrc && (
+          {showSpinner && (
             <div className="preview-loading">
               <div className="preview-spinner" />
             </div>
           )}
 
           <div className="single-preview-wrapper">
-            <AnimatePresence mode="wait" custom={{ direction, actionType }}>
-              <motion.img
-                key={`single-${currentPage}`}
-                src={`${apiBase}/preview/${jobId}/${currentPage}?version=${showOriginal ? 'original' : 'translated'}`}
-                custom={{ direction, actionType }}
-                variants={transitionVariants}
-                initial="enter"
-                animate="center"
-                exit="exit"
-                className="preview-image"
+            <AnimatePresence mode="wait" custom={{ direction, actionType, isMobile }}>
+              {displaySrc && (
+                <motion.img
+                  key={displaySrc}
+                  src={displaySrc}
+                  custom={{ direction, actionType, isMobile }}
+                  variants={transitionVariants}
+                  initial="enter"
+                  animate="center"
+                  exit="exit"
+                  className="preview-image"
                   style={{
                     x: dragX,
-                    touchAction: 'none',
-                    willChange: 'transform, opacity',
-                    transformStyle: 'preserve-3d',
-                    backfaceVisibility: 'hidden'
+                    touchAction: 'none'
                   }}
                   draggable={false}
                   drag="x"
@@ -78,6 +78,7 @@ export const PdfPreviewContent = ({
                   }}
                   alt="PDF Page"
                 />
+              )}
             </AnimatePresence>
           </div>
         </div>
@@ -86,34 +87,32 @@ export const PdfPreviewContent = ({
           <div className="side-pane">
             <div className="pane-label">{t.preview_original}</div>
             <div className="pane-content">
-              <AnimatePresence mode="wait" custom={{ direction, actionType }}>
-                <motion.div
-                  key={`orig-${currentPage}`}
-                  custom={{ direction, actionType }}
-                  variants={transitionVariants}
-                  initial="enter"
-                  animate="center"
-                  exit="exit"
-                  style={{
-                    position: 'absolute',
-                    inset: 0,
-                    display: 'flex',
-                    alignItems: 'center',
-                    justifyContent: 'center'
-                  }}
-                >
-                  <motion.img
-                    src={`${apiBase}/preview/${jobId}/${currentPage}?version=original`}
+              <AnimatePresence mode="wait" custom={{ direction, isMobile }}>
+                {displaySrcSide?.orig && (
+                  <motion.div
+                    key={displaySrcSide.orig}
+                    custom={{ direction, isMobile }}
+                    variants={sideVariants}
+                    initial="enter"
+                    animate="center"
+                    exit="exit"
+                    style={{
+                      position: 'absolute',
+                      inset: 0,
+                      display: 'flex',
+                      alignItems: 'center',
+                      justifyContent: 'center'
+                    }}
+                  >
+                    <motion.img
+                      src={displaySrcSide.orig}
                     className="preview-image"
                     style={{
                       width: '100%',
                       height: '100%',
-                      objectFit: 'fill',
+                      objectFit: 'contain',
                       touchAction: 'none',
-                      x: dragX,
-                      willChange: 'transform, opacity',
-                      transformStyle: 'preserve-3d',
-                      backfaceVisibility: 'hidden'
+                      x: dragX
                     }}
                     draggable={false}
                     drag="x"
@@ -132,40 +131,39 @@ export const PdfPreviewContent = ({
                     alt="Original"
                   />
                 </motion.div>
+              )}
               </AnimatePresence>
             </div>
           </div>
           <div className="side-pane">
             <div className="pane-label">{t.preview_translated}</div>
             <div className="pane-content">
-              <AnimatePresence mode="wait" custom={{ direction, actionType }}>
-                <motion.div
-                  key={`trans-${currentPage}`}
-                  custom={{ direction, actionType }}
-                  variants={transitionVariants}
-                  initial="enter"
-                  animate="center"
-                  exit="exit"
-                  style={{
-                    position: 'absolute',
-                    inset: 0,
-                    display: 'flex',
-                    alignItems: 'center',
-                    justifyContent: 'center'
-                  }}
-                >
-                  <motion.img
-                    src={`${apiBase}/preview/${jobId}/${currentPage}?version=translated`}
+              <AnimatePresence mode="wait" custom={{ direction, isMobile }}>
+                {displaySrcSide?.trans && (
+                  <motion.div
+                    key={displaySrcSide.trans}
+                    custom={{ direction, isMobile }}
+                    variants={sideVariants}
+                    initial="enter"
+                    animate="center"
+                    exit="exit"
+                    style={{
+                      position: 'absolute',
+                      inset: 0,
+                      display: 'flex',
+                      alignItems: 'center',
+                      justifyContent: 'center'
+                    }}
+                  >
+                    <motion.img
+                      src={displaySrcSide.trans}
                     className="preview-image"
                     style={{
                       width: '100%',
                       height: '100%',
-                      objectFit: 'fill',
+                      objectFit: 'contain',
                       touchAction: 'none',
-                      x: dragX,
-                      willChange: 'transform, opacity',
-                      transformStyle: 'preserve-3d',
-                      backfaceVisibility: 'hidden'
+                      x: dragX
                     }}
                     draggable={false}
                     drag="x"
@@ -184,6 +182,7 @@ export const PdfPreviewContent = ({
                     alt="Translated"
                   />
                 </motion.div>
+              )}
               </AnimatePresence>
             </div>
           </div>

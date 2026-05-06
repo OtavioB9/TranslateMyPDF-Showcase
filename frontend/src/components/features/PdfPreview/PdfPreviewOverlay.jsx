@@ -4,9 +4,11 @@ import { motion, AnimatePresence } from 'framer-motion';
 import { 
   FileText, Eye, EyeOff, Download, File, Layers, 
   ArrowRight, X, ChevronFirst, ChevronsLeft, 
-  ChevronLeft, ChevronRight, ChevronsRight, ChevronLast 
+  ChevronLeft, ChevronRight, ChevronsRight, ChevronLast,
+  Sun, Moon
 } from 'lucide-react';
 import { transitionVariants } from './variants';
+import { useTheme } from '../../../contexts/ThemeContext';
 
 export const PdfPreviewOverlay = ({
   isExpanded,
@@ -36,9 +38,13 @@ export const PdfPreviewOverlay = ({
   apiBase,
   paginate,
   direction,
-  actionType
+  actionType,
+  displaySrc,
+  displaySrcSide
 }) => {
+  const { theme, toggleTheme } = useTheme();
   if (!isExpanded) return null;
+  const isMobile = typeof window !== 'undefined' && window.innerWidth <= 768;
 
   return createPortal(
     <div 
@@ -213,6 +219,27 @@ export const PdfPreviewOverlay = ({
               </AnimatePresence>
 
               <motion.button 
+                className="theme-toggle reader-btn" 
+                onClick={toggleTheme} 
+                whileHover={{ y: -4, scale: 1.1 }}
+                whileTap={{ scale: 0.9 }}
+                style={{ 
+                  background: 'transparent',
+                  border: 'none',
+                  color: 'var(--text-body)',
+                  cursor: 'pointer',
+                  display: 'flex',
+                  alignItems: 'center',
+                  justifyContent: 'center',
+                  padding: '0.5rem',
+                  borderRadius: 'var(--radius-pill)'
+                }}
+                aria-label={theme === 'dark' ? 'Ativar modo claro' : 'Ativar modo escuro'}
+              >
+                {theme === 'dark' ? <Sun size={18} /> : <Moon size={18} />}
+              </motion.button>
+
+              <motion.button 
                 onClick={() => {
                   setIsExpanded(false);
                   setZoom(1);
@@ -247,27 +274,28 @@ export const PdfPreviewOverlay = ({
                     onScroll={syncScroll}
                     onMouseMove={handleMouseMove}
                   >
-                    <AnimatePresence mode="wait" custom={{ direction, actionType }}>
-                      <motion.img 
-                        key={`original-${currentPage}`}
-                        src={`${apiBase}/preview/${jobId}/${currentPage}?version=original`} 
-                        className="expanded-image"
-                        alt="Original"
-                        custom={{ direction, actionType }}
-                        variants={transitionVariants}
-                        initial="enter"
-                        animate={{ 
-                          ...transitionVariants.center, 
-                          scale: zoom,
-                          originX: mousePos.x,
-                          originY: mousePos.y
-                        }}
-                        exit="exit"
-                        style={{ 
-                          cursor: zoom > 1 ? 'zoom-out' : 'zoom-in',
-                          zIndex: 1
-                        }}
-                      />
+                    <AnimatePresence mode="wait" custom={{ direction, actionType, isMobile }}>
+                      {((mode === 'side' && displaySrcSide?.orig) || (mode === 'single' && displaySrc)) && (
+                        <motion.img 
+                          key={mode === 'side' ? displaySrcSide.orig : displaySrc}
+                          src={mode === 'side' ? displaySrcSide.orig : displaySrc} 
+                          className="expanded-image"
+                          alt="Original"
+                          custom={{ direction, actionType, isMobile }}
+                          variants={transitionVariants}
+                          initial="enter"
+                          animate="center"
+                          exit="exit"
+                          transition={{ type: 'spring', stiffness: 300, damping: 30 }}
+                          style={{ 
+                            scale: zoom,
+                            originX: mousePos.x,
+                            originY: mousePos.y,
+                            cursor: zoom > 1 ? 'zoom-out' : 'zoom-in',
+                            zIndex: 1
+                          }}
+                        />
+                      )}
                     </AnimatePresence>
                   </div>
                 </div>
@@ -282,27 +310,28 @@ export const PdfPreviewOverlay = ({
                     onScroll={syncScroll}
                     onMouseMove={handleMouseMove}
                   >
-                    <AnimatePresence mode="wait" custom={{ direction, actionType }}>
-                      <motion.img 
-                        key={`translated-${currentPage}`}
-                        src={`${apiBase}/preview/${jobId}/${currentPage}?version=translated`} 
-                        className="expanded-image"
-                        alt="Translated"
-                        custom={{ direction, actionType }}
-                        variants={transitionVariants}
-                        initial="enter"
-                        animate={{ 
-                          ...transitionVariants.center, 
-                          scale: zoom,
-                          originX: mousePos.x,
-                          originY: mousePos.y
-                        }}
-                        exit="exit"
-                        style={{ 
-                          cursor: zoom > 1 ? 'zoom-out' : 'zoom-in',
-                          zIndex: 1
-                        }}
-                      />
+                    <AnimatePresence mode="wait" custom={{ direction, actionType, isMobile }}>
+                      {((mode === 'side' && displaySrcSide?.trans) || (mode === 'single' && displaySrc)) && (
+                        <motion.img 
+                          key={mode === 'side' ? displaySrcSide.trans : displaySrc}
+                          src={mode === 'side' ? displaySrcSide.trans : displaySrc} 
+                          className="expanded-image"
+                          alt="Translated"
+                          custom={{ direction, actionType, isMobile }}
+                          variants={transitionVariants}
+                          initial="enter"
+                          animate="center"
+                          exit="exit"
+                          transition={{ type: 'spring', stiffness: 300, damping: 30 }}
+                          style={{ 
+                            scale: zoom,
+                            originX: mousePos.x,
+                            originY: mousePos.y,
+                            cursor: zoom > 1 ? 'zoom-out' : 'zoom-in',
+                            zIndex: 1
+                          }}
+                        />
+                      )}
                     </AnimatePresence>
                   </div>
                 </div>

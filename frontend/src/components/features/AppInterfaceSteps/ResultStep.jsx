@@ -33,7 +33,6 @@ export const ResultStep = ({
       <div className="results-header">
         <div className="icon-red-success">
           <CheckCircle size={44} />
-          <div className="success-glow"></div>
         </div>
         <h2 className="results-title">{t.res_title}</h2>
         <p className="results-desc">{t.res_desc}</p>
@@ -87,9 +86,9 @@ export const ResultStep = ({
             {showDownloadMenu && (
               <motion.div 
                 className="download-dropdown-v2"
-                initial={{ opacity: 0, y: 10, scale: 0.95 }}
-                animate={{ opacity: 1, y: 0, scale: 1 }}
-                exit={{ opacity: 0, y: 10, scale: 0.95 }}
+                initial={{ opacity: 0, x: "-50%", y: 10, scale: 0.95 }}
+                animate={{ opacity: 1, x: "-50%", y: 0, scale: 1 }}
+                exit={{ opacity: 0, x: "-50%", y: 10, scale: 0.95 }}
                 transition={{ type: 'spring', stiffness: 200, damping: 20 }}
               >
                 <motion.div 

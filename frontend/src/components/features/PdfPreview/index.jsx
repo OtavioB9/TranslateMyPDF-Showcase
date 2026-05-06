@@ -100,16 +100,19 @@ export function PdfPreview({ jobId, apiBase, t, status, limitPages, mode = 'sing
   }, [isPreloading])
 
   useEffect(() => {
+    if (pageCount === 0) return
+    const isMobile = window.innerWidth <= 768;
     const timer = setTimeout(() => {
-      if (pageCount === 0) return
       const preload = (pIndex, orig) => {
         const src = `${apiBase}/preview/${jobId}/${pIndex}?version=${orig ? 'original' : 'translated'}`
         const img = new Image()
         img.src = src
       }
       if (currentPage < pageCount - 1) preload(currentPage + 1, showOriginal)
-      if (currentPage > 0) preload(currentPage - 1, showOriginal)
-      preload(currentPage, !showOriginal)
+      if (!isMobile) {
+        if (currentPage > 0) preload(currentPage - 1, showOriginal)
+        preload(currentPage, !showOriginal)
+      }
     }, 400);
     return () => clearTimeout(timer);
   }, [currentPage, showOriginal, pageCount, jobId, apiBase])
@@ -119,7 +122,9 @@ export function PdfPreview({ jobId, apiBase, t, status, limitPages, mode = 'sing
       if (isExpanded && currentPage < pageCount - 1) {
         const nextP = currentPage + 1
         const p1 = new Image(); p1.src = `${apiBase}/preview/${jobId}/${nextP}?version=original`
-        const p2 = new Image(); p2.src = `${apiBase}/preview/${jobId}/${nextP}?version=translated`
+        if (window.innerWidth > 768) {
+          const p2 = new Image(); p2.src = `${apiBase}/preview/${jobId}/${nextP}?version=translated`
+        }
       }
     }, 500);
     return () => clearTimeout(timer);
@@ -147,13 +152,15 @@ export function PdfPreview({ jobId, apiBase, t, status, limitPages, mode = 'sing
   }
 
   const paginate = (newDirection) => {
+    if (isPreloading) return
     dragX.set(0)
     expandedDragX.set(0)
+    setZoom(1) 
+    
     if (leftScrollRef.current) leftScrollRef.current.scrollTop = 0
     if (rightScrollRef.current) rightScrollRef.current.scrollTop = 0
     
     setPage([currentPage + newDirection, newDirection, 'paginate'])
-    setZoom(1) 
   }
 
   const syncScroll = (e) => {
@@ -189,6 +196,7 @@ export function PdfPreview({ jobId, apiBase, t, status, limitPages, mode = 'sing
   }
 
   const toggleVersion = () => {
+    if (isPreloading) return
     setPage([currentPage, showOriginal ? -1 : 1, 'toggle']) 
     setShowOriginal(v => !v)
   }
@@ -263,6 +271,8 @@ export function PdfPreview({ jobId, apiBase, t, status, limitPages, mode = 'sing
         paginate={paginate}
         direction={direction}
         actionType={actionType}
+        displaySrc={displaySrc}
+        displaySrcSide={displaySrcSide}
       />
     </div>
   )

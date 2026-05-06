@@ -58,14 +58,12 @@ section { padding: 80px 0; }
 /* -- Shared Components -- */
 .liquid-glass {
   background: linear-gradient(135deg, rgba(255, 255, 255, 0.04) 0%, rgba(255, 255, 255, 0.01) 100%);
-  backdrop-filter: blur(12px) saturate(180%);
-  -webkit-backdrop-filter: blur(12px) saturate(180%);
+  backdrop-filter: blur(24px) saturate(180%);
+  -webkit-backdrop-filter: blur(24px) saturate(180%);
   border: 1px solid rgba(255, 255, 255, 0.08);
   border-radius: var(--radius-xl);
   overflow: hidden;
   position: relative;
-  transform: translateZ(0);
-  will-change: transform, backdrop-filter;
   box-shadow: 
     var(--shadow-card),
     inset 0 1px 1px rgba(255, 255, 255, 0.03),
@@ -81,12 +79,12 @@ section { padding: 80px 0; }
 /* -- Buttons -- */
 .btn-dark {
   background: var(--accent-rose);
-  color: white;
+  color: #ffffff;
   padding: 0.9rem 2rem;
   border-radius: var(--radius-pill);
-  font-weight: 600;
+  font-weight: 700;
   font-size: 1rem;
-  border: none;
+  border: 2px solid transparent;
   cursor: pointer;
   font-family: var(--font);
   transition: all 0.25s cubic-bezier(0.16, 1, 0.3, 1);
@@ -94,6 +92,7 @@ section { padding: 80px 0; }
   display: inline-flex;
   align-items: center;
   gap: 0.5rem;
+  letter-spacing: 0.01em;
 }
 
 .btn-dark:hover {
@@ -121,11 +120,6 @@ section { padding: 80px 0; }
   color: var(--text-heading);
 }
 
-/* -- Animations -- */
-@keyframes shine {
-  0% { background-position: 0% 200%; }
-  100% { background-position: 0% -200%; }
-}
 
 /* -- Responsive Utilities -- */
 @media (max-width: 768px) {
@@ -134,9 +128,5 @@ section { padding: 80px 0; }
   .container { 
     padding-left: 1.25rem; 
     padding-right: 1.25rem; 
-  }
-  .liquid-glass {
-    backdrop-filter: blur(8px) saturate(160%);
-    -webkit-backdrop-filter: blur(8px) saturate(160%);
   }
 }

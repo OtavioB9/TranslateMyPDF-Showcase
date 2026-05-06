@@ -52,7 +52,7 @@ function AppContent() {
 
       <Routes>
         <Route path="/" element={
-          <>
+          <main>
             {!isDesktop && (
               <>
                 <Hero t={t} siteLang={siteLang} scrollToApp={scrollToApp} heroRef={heroRef} />
@@ -80,10 +80,10 @@ function AppContent() {
 
             <Downloads t={t} scrollToApp={scrollToApp} />
             <Footer scrollToHero={scrollToHero} />
-          </>
+          </main>
         } />
-        <Route path="/sobre" element={<About />} />
-        <Route path="/faq" element={<FAQ />} />
+        <Route path="/sobre" element={<main><About /></main>} />
+        <Route path="/faq" element={<main><FAQ /></main>} />
         <Route path="*" element={<Navigate to="/" replace />} />
       </Routes>
 

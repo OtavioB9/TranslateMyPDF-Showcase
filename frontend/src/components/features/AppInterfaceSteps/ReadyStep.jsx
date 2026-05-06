@@ -66,8 +66,6 @@ export const ReadyStep = ({
       }}
       className="ready-zone"
     >
-      <h2 className="card-shine-title">LAYRPDF</h2>
-
       <p className="file-count-label">{fileList.length} {t.file_count}</p>
 
       <div className="config-pills-stack">
@@ -106,11 +104,11 @@ export const ReadyStep = ({
             ) : (isCounting || !fileTotalPages ? (
               <>{t.up_counting}<LoadingDots /></>
             ) : (
-              t.config_pages
+              t.sidebar_total_pages
             ))}
           </span>
           <div className="summary-count">
-            <FluidCounter value={isCounting ? 0 : (limitPages || fileTotalPages || 0)} />
+            <FluidCounter value={isCounting ? 0 : (fileTotalPages || 0)} />
           </div>
           <div className="pages-input-wrapper">
             <input
@@ -145,6 +143,7 @@ export const ReadyStep = ({
               </button>
             </div>
           </div>
+          <span className="input-sub-label">{t.config_pages}</span>
         </motion.div>
       </div>
 

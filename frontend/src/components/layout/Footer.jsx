@@ -47,7 +47,7 @@ export const Footer = ({ scrollToHero }) => {
 
         <div className="footer-bottom">
           <p className="footer-copy">
-            &copy; {currentYear} LayrPDF. {t.footer_copy || 'Solução inteligente para tradução de PDFs.'}
+            &copy; {currentYear} LayrPDF. {t.footer_copy || 'Projeto open-source para tradução de PDFs.'}
           </p>
         </div>
       </div>

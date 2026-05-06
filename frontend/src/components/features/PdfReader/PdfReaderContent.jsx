@@ -12,9 +12,9 @@ export const PdfReaderContent = ({
   return (
     <main className="reader-content">
       <div className="reader-book-layout">
-        <div className="reader-pane" onScroll={handleSyncScroll('orig')}>
+        <div className="reader-pane">
           <div className="pane-header-sticky">{t.preview_original}</div>
-          <div className="image-scroll-wrapper" ref={scrollRefOrig}>
+          <div className="image-scroll-wrapper" ref={scrollRefOrig} onScroll={handleSyncScroll('orig')}>
             {displaySrc.orig && (
               <img 
                 src={displaySrc.orig} 
@@ -26,9 +26,9 @@ export const PdfReaderContent = ({
           </div>
         </div>
 
-        <div className="reader-pane" onScroll={handleSyncScroll('trans')}>
+        <div className="reader-pane">
           <div className="pane-header-sticky">{t.preview_translated}</div>
-          <div className="image-scroll-wrapper" ref={scrollRefTrans}>
+          <div className="image-scroll-wrapper" ref={scrollRefTrans} onScroll={handleSyncScroll('trans')}>
             {displaySrc.trans && (
               <img 
                 src={displaySrc.trans} 

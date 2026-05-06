@@ -149,6 +149,7 @@ export default function Navbar({ scrollToApp, scrollToHero }) {
               whileHover={{ backgroundColor: 'var(--accent-rose-soft)', y: -5 }}
               whileTap={{ scale: 0.9 }}
               variants={fadeUp}
+              aria-label={siteLang === 'pt' ? 'Switch to English' : 'Mudar para Português'}
             >
               {siteLang === 'pt' ? 'EN' : 'PT-BR'}
             </motion.button>
@@ -159,6 +160,7 @@ export default function Navbar({ scrollToApp, scrollToHero }) {
               whileHover={{ rotate: 15, y: -5 }}
               whileTap={{ scale: 0.9 }}
               variants={fadeUp}
+              aria-label={theme === 'dark' ? 'Ativar modo claro' : 'Ativar modo escuro'}
             >
               {theme === 'dark' ? <Sun size={16} /> : <Moon size={16} />}
             </motion.button>
@@ -168,6 +170,8 @@ export default function Navbar({ scrollToApp, scrollToHero }) {
             className="mobile-menu-toggle" 
             onClick={() => setIsOpen(!isOpen)}
             whileTap={{ scale: 0.9 }}
+            aria-label={isOpen ? 'Fechar menu' : 'Abrir menu'}
+            aria-expanded={isOpen}
           >
             <Menu size={24} />
           </motion.button>

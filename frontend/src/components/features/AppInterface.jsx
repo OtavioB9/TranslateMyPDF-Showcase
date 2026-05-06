@@ -5,7 +5,6 @@ import { ReadyStep } from './AppInterfaceSteps/ReadyStep';
 import { ResultStep } from './AppInterfaceSteps/ResultStep';
 import { ProcessingStep } from './AppInterfaceSteps/ProcessingStep';
 import { SidebarInfo } from './AppInterfaceSteps/SidebarInfo';
-import { useSound } from '../../hooks/useSound';
 
 import './AppInterface.css';
 
@@ -49,35 +48,17 @@ export const AppInterface = ({
     displayWidth
   } = translationProps;
 
-  const { playSound, loadSound, initContext } = useSound();
-
-  useEffect(() => {
-    loadSound('click', '/sounds/click.mp3');
-    loadSound('success', '/sounds/success.mp3');
-    loadSound('upload', '/sounds/upload.mp3');
-  }, [loadSound]);
-
   const handleUpload = (e) => {
-    initContext();
-    playSound('upload', 0.3);
     originalHandleUpload(e);
   };
 
   const handleTranslate = async () => {
-    playSound('click', 0.4);
     await originalHandleTranslate();
   };
 
   const resetAll = () => {
-    playSound('click', 0.2);
     originalResetAll();
   };
-
-  useEffect(() => {
-    if (status?.status === 'completed') {
-      playSound('success', 0.4);
-    }
-  }, [status?.status, playSound]);
 
   const handleDownloadAction = async (type) => {
     let url = '';
